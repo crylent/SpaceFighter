@@ -13,7 +13,7 @@ public class PlayerController : SpaceShip
 
     private enum WeaponType
     {
-        None, Laser, Rocket, AutoCannon
+        None, Laser, Rocket, AutoCannon, GrandCannon
     }
 
     private WeaponType _weapon;
@@ -35,6 +35,8 @@ public class PlayerController : SpaceShip
 
     public void OnAim(InputAction.CallbackContext context)
     {
+        if (!context.performed) return;
+        
         var position = Camera.main!.ScreenToWorldPoint(context.ReadValue<Vector2>());
         if (!_enemiesLimits.Check(position)) return;
         var positionRounded = new Vector2(
@@ -53,6 +55,7 @@ public class PlayerController : SpaceShip
         // rocket & auto cannon
         weapons.rocket.transform.position = positionRounded;
         weapons.autoCannon.transform.position = positionRounded;
+        weapons.grandCannon.transform.position = positionRounded;
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -67,8 +70,14 @@ public class PlayerController : SpaceShip
         var key = context.ReadValue<float>();
         _weapon = (WeaponType) key;
         
-        weapons.laser.gameObject.SetActive(_weapon == WeaponType.Laser);
-        weapons.rocket.gameObject.SetActive(_weapon == WeaponType.Rocket);
-        weapons.autoCannon.gameObject.SetActive(_weapon == WeaponType.AutoCannon);
+        CheckActiveWeapon(weapons.laser, WeaponType.Laser);
+        CheckActiveWeapon(weapons.rocket, WeaponType.Rocket);
+        CheckActiveWeapon(weapons.autoCannon, WeaponType.AutoCannon);
+        CheckActiveWeapon(weapons.grandCannon, WeaponType.GrandCannon);
+    }
+
+    private void CheckActiveWeapon(Component weapon, WeaponType weaponType)
+    {
+        weapon.gameObject.SetActive(_weapon == weaponType);
     }
 }

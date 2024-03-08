@@ -8,6 +8,7 @@ namespace Weapon
         public Weapon laser;
         public Weapon rocket;
         public Weapon autoCannon;
+        public Weapon grandCannon;
 
         public Weapon ById(int id) => 
             id switch 
@@ -15,6 +16,7 @@ namespace Weapon
                 1 => laser,
                 2 => rocket,
                 3 => autoCannon,
+                4 => grandCannon,
                 _ => null 
             };
     }
