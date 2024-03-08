@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapon;
 
 public class PlayerController : SpaceShip
 {
@@ -13,7 +13,7 @@ public class PlayerController : SpaceShip
 
     private enum WeaponType
     {
-        None, Laser, Rocket
+        None, Laser, Rocket, AutoCannon
     }
 
     private WeaponType _weapon;
@@ -50,8 +50,9 @@ public class PlayerController : SpaceShip
         ) * Mathf.Rad2Deg;
         if (laserAngles.Check(rotation)) weapons.laser.transform.rotation = Quaternion.Euler(0, 0, rotation);    
                 
-        // rocket
+        // rocket & auto cannon
         weapons.rocket.transform.position = positionRounded;
+        weapons.autoCannon.transform.position = positionRounded;
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -68,5 +69,6 @@ public class PlayerController : SpaceShip
         
         weapons.laser.gameObject.SetActive(_weapon == WeaponType.Laser);
         weapons.rocket.gameObject.SetActive(_weapon == WeaponType.Rocket);
+        weapons.autoCannon.gameObject.SetActive(_weapon == WeaponType.AutoCannon);
     }
 }
