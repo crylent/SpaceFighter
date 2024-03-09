@@ -1,7 +1,10 @@
+using UI;
 using UnityEngine;
+using Weapon;
 
 public class SpaceShip: MonoBehaviour
 {
+    [SerializeField] protected Weapons weapons;
     [SerializeField] private int maxDurability = 100;
     [SerializeField] protected HealthBar healthBar;
 
@@ -17,5 +20,6 @@ public class SpaceShip: MonoBehaviour
     public void TakeDamage(int damage)
     {
         Durability -= damage;
+        print(Durability);
     }
 }

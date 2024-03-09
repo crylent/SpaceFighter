@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 namespace Weapon
@@ -14,7 +15,7 @@ namespace Weapon
         private Animator _animator;
         private static readonly int OnAttackTrigger = Animator.StringToHash("onAttack");
 
-        private readonly List<Enemy> _enemiesThreatened = new();
+        private readonly List<SpaceShip> _shipsThreatened = new();
 
         private void Start()
         {
@@ -23,47 +24,57 @@ namespace Weapon
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            SetEnemyThreatened(col, true);
+            SetShipThreatened(col, true);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            SetEnemyThreatened(other, false);
+            SetShipThreatened(other, false);
         }
 
-        private void SetEnemyThreatened(Component other, bool threatened)
+        private void SetShipThreatened(Component other, bool threatened)
         {
-            if (!other.CompareTag("Enemy")) return;
-        
-            var enemy = other.GetComponent<Enemy>();
-            enemy.SetThreatened(threatened);
-            if (threatened) _enemiesThreatened.Add(enemy);
-            else _enemiesThreatened.Remove(enemy);
+            var isEnemy = other.CompareTag("Enemy");
+            if (!isEnemy && !other.CompareTag("Player")) return;
+            var ship = other.GetComponent<SpaceShip>();
+            if (isEnemy)
+            {
+                (ship as Enemy)!.SetThreatened(threatened);
+            }
+            if (threatened) _shipsThreatened.Add(ship);
+            else _shipsThreatened.Remove(ship);
         }
 
         public virtual void Fire()
         {
             _animator.SetTrigger(OnAttackTrigger);
-            foreach (var enemy in _enemiesThreatened)
+            foreach (var ship in _shipsThreatened)
             {
-                enemy.TakeDamage(10);
+                ship.TakeDamage(10);
             }
         }
 
+        private bool _hasActiveProjectile;
+
         protected IEnumerator LaunchProjectile(GameObject projectile, float projectileStrikeTime)
         {
-            var targetPosition = transform.position;
-            var currentPosition = FindObjectOfType<PlayerController>().transform.position;
+            var tr = transform;
+            var targetPosition = tr.position;
+            var currentPosition = tr.parent.position;
             var deltaPosition = targetPosition - currentPosition;
             var instance = Instantiate(
                 projectile,
                 currentPosition,
                 Quaternion.FromToRotation(Vector3.up, deltaPosition)
             );
+            _hasActiveProjectile = true;
             var projectileRigidbody = instance.GetComponent<Rigidbody2D>();
             projectileRigidbody.velocity = deltaPosition / projectileStrikeTime;
             yield return new WaitForSeconds(projectileStrikeTime);
             Destroy(instance);
+            _hasActiveProjectile = false;
         }
+
+        public bool CanBeDeactivated() => !_hasActiveProjectile;
     }
 }
