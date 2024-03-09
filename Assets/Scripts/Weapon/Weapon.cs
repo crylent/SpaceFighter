@@ -12,6 +12,9 @@ namespace Weapon
     )]
     public class Weapon: MonoBehaviour
     {
+        [SerializeField] private int damage = 10;
+        [SerializeField] private int damageReductionFromDistance;
+        
         private Animator _animator;
         private static readonly int OnAttackTrigger = Animator.StringToHash("onAttack");
 
@@ -50,7 +53,11 @@ namespace Weapon
             _animator.SetTrigger(OnAttackTrigger);
             foreach (var ship in _shipsThreatened)
             {
-                ship.TakeDamage(10);
+                var positionDelta = ship.transform.position - transform.parent.position;
+                var orthoMagnitude = Mathf.RoundToInt(Mathf.Abs(positionDelta.x) + Mathf.Abs(positionDelta.y));
+                var resDamage = damage - damageReductionFromDistance * orthoMagnitude;
+                ship.TakeDamage(resDamage);
+                print(resDamage);
             }
         }
 

@@ -19,7 +19,7 @@ public class SpaceShip: MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (damage <= 0) return;
         Durability -= damage;
-        print(Durability);
     }
 }

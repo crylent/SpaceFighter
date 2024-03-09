@@ -316,6 +316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c897ed7179db4d7ca5d79085754d19fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
+  damageReductionFromDistance: 2
   projectile: {fileID: 3161970563512392806, guid: 45929a90fa1ed8446b6c151e0066f147, type: 3}
   projectileStrikeTime: 0.083
   projectilesNumber: 5
@@ -818,6 +820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6326bfa2c69a45378723865d406639c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  damageReductionFromDistance: 0
   projectile: {fileID: 494291876915395013, guid: 485b40550ec6b9742a4775404094f9ba, type: 3}
   projectileStrikeTime: 0.083
 --- !u!95 &764811734
@@ -992,6 +996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20996b8718354227a6cfad8caa9c4d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  damageReductionFromDistance: 0
 --- !u!50 &1228263400
 Rigidbody2D:
   serializedVersion: 4
@@ -1319,6 +1325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30017869074f4f49aa0389c52cb40a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  damageReductionFromDistance: 0
   projectile: {fileID: 5637995182357565814, guid: 15335aa2f5c7569458efd05c173125dc, type: 3}
   projectileStrikeTime: 0.083
 --- !u!1 &1660863581
@@ -1979,6 +1987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6326bfa2c69a45378723865d406639c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 30
+  damageReductionFromDistance: 0
   projectile: {fileID: 494291876915395013, guid: bc394a49706941e4895e94f9cb131c83, type: 3}
   projectileStrikeTime: 0.083
 --- !u!1 &2121642169
