@@ -2,7 +2,7 @@ using UI;
 using UnityEngine;
 using Weapon;
 
-public class SpaceShip: MonoBehaviour
+public abstract class SpaceShip: MonoBehaviour
 {
     [SerializeField] protected Weapons weapons;
     [SerializeField] private int maxDurability = 100;
@@ -21,5 +21,8 @@ public class SpaceShip: MonoBehaviour
     {
         if (damage <= 0) return;
         Durability -= damage;
+        if (Durability <= 0) Destruction();
     }
+
+    protected abstract void Destruction();
 }

@@ -23,6 +23,11 @@ namespace Enemies
             Player = FindObjectOfType<PlayerController>();
         }
 
+        protected override void Destruction()
+        {
+            Destroy(gameObject);
+        }
+
         public void SetThreatened(bool isThreatened = true)
         {
             _renderer.material = isThreatened ? outlineMaterial : defaultMaterial;

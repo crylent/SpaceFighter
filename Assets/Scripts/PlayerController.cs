@@ -26,6 +26,11 @@ public class PlayerController : SpaceShip
         _actionPoints = actionPoints;
     }
 
+    protected override void Destruction()
+    {
+        
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!context.performed || _actionPoints <= 0) return;

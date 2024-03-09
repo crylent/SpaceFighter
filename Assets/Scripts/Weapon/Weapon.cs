@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
@@ -51,13 +52,13 @@ namespace Weapon
         public virtual void Fire()
         {
             _animator.SetTrigger(OnAttackTrigger);
-            foreach (var ship in _shipsThreatened)
+            var ships = new List<SpaceShip>(_shipsThreatened);
+            foreach (var ship in ships)
             {
                 var positionDelta = ship.transform.position - transform.parent.position;
                 var orthoMagnitude = Mathf.RoundToInt(Mathf.Abs(positionDelta.x) + Mathf.Abs(positionDelta.y));
                 var resDamage = damage - damageReductionFromDistance * orthoMagnitude;
                 ship.TakeDamage(resDamage);
-                print(resDamage);
             }
         }
 
