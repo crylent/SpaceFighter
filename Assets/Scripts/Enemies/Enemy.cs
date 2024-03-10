@@ -7,7 +7,6 @@ namespace Enemies
 {
     public abstract class Enemy : SpaceShip
     {
-        [SerializeField] private int actionsPerTurn = 1;
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material outlineMaterial;
 
@@ -20,7 +19,6 @@ namespace Enemies
         private bool _isMakingMove;
         public bool IsMakingMove() => _isMakingMove;
 
-        // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
@@ -48,20 +46,17 @@ namespace Enemies
         private IEnumerator MakeMovesCoroutine()
         {
             _isMakingMove = true;
-            for (var i = 0; i < actionsPerTurn; i++)
+            while (ActionPoints > 0)
             {
-                MakeMove(actionsPerTurn - i);
+                MakeMove();
+                ActionPoints -= 1;
+                onActionPointsChanged.Invoke(ActionPoints);
                 yield return new WaitForSeconds(1f);
             }
             _isMakingMove = false;
         }
 
-        protected abstract void MakeMove(int actionsRemain);
-
-        /*protected bool UseGrandCannonOrMoveToPlayerOnX()
-        {
-            
-        }*/
+        protected abstract void MakeMove();
 
         protected bool MoveToPlayerOnX()
         {

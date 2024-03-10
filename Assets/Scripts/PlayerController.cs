@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Weapon;
 
@@ -9,11 +8,6 @@ public class PlayerController : SpaceShip
     
     [SerializeField] private LimitingRectangle limits;
     [SerializeField] private Range laserAngles;
-    [SerializeField] private int actionPoints = 5;
-    [SerializeField] private UnityEvent<int> onActionPointsChanged;
-
-    public int MaxActionPoints => actionPoints;
-    private int _actionPoints;
     
     private GameManager _gameManager;
 
@@ -23,7 +17,6 @@ public class PlayerController : SpaceShip
     {
         base.Start();
         _gameManager = FindObjectOfType<GameManager>();
-        _actionPoints = actionPoints;
     }
 
     protected override void Destruction()
@@ -33,7 +26,7 @@ public class PlayerController : SpaceShip
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!context.performed || _actionPoints <= 0) return;
+        if (!context.performed || ActionPoints <= 0) return;
 
         var delta = context.ReadValue<Vector2>();
         if (!limits.Check((Vector2)transform.position + delta)) return;
@@ -77,7 +70,7 @@ public class PlayerController : SpaceShip
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!context.performed || _weapon == WeaponType.None || _actionPoints <= 0) return;
+        if (!context.performed || _weapon == WeaponType.None || ActionPoints <= 0) return;
         weapons.ById((int) _weapon).Fire();
         WasteActionPoints();
     }
@@ -91,7 +84,7 @@ public class PlayerController : SpaceShip
 
     private void SelectWeapon(WeaponType weapon)
     {
-        if (_actionPoints <= 0 && weapon != WeaponType.None) return;
+        if (ActionPoints <= 0 && weapon != WeaponType.None) return;
         _weapon = weapon;
         
         CheckActiveWeapon(weapons.laser, WeaponType.Laser);
@@ -114,17 +107,11 @@ public class PlayerController : SpaceShip
 
     private void WasteActionPoints(int points = 1)
     {
-        _actionPoints -= points;
-        onActionPointsChanged.Invoke(_actionPoints);
-        if (_actionPoints > 0) return;
+        ActionPoints -= points;
+        onActionPointsChanged.Invoke(ActionPoints);
+        if (ActionPoints > 0) return;
         
         SelectWeapon(WeaponType.None);
         _gameManager.PlayerEndTurn();
-    }
-
-    public void RestoreActionPoints()
-    {
-        _actionPoints = MaxActionPoints;
-        onActionPointsChanged.Invoke(_actionPoints);
     }
 }

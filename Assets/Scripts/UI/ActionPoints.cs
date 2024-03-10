@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace UI
 {
-    public class ActionPoints: UIBehaviour
+    public class ActionPoints: AttachableUI
     {
         [SerializeField] private GameObject actionPoint;
         
@@ -16,7 +15,8 @@ namespace UI
 
         protected override void Start()
         {
-            _maxPoints = FindObjectOfType<PlayerController>().MaxActionPoints;
+            var owner = IsAttached ? AttachedTo! : FindObjectOfType<PlayerController>();
+            _maxPoints = owner.MaxActionPoints;
             for (var points = 0; points < _maxPoints; points++)
             {
                 _actionPoints.Add(Instantiate(actionPoint, transform));
@@ -42,6 +42,5 @@ namespace UI
         {
             _actionPoints[i].GetComponent<Animator>().SetBool(IsWastedBoolean, isWasted);
         }
-
     }
 }

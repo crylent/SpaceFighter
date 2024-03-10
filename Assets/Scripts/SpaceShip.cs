@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using Weapon;
 
 public abstract class SpaceShip: MonoBehaviour
@@ -7,6 +10,12 @@ public abstract class SpaceShip: MonoBehaviour
     [SerializeField] protected Weapons weapons;
     [SerializeField] private int maxDurability = 100;
     [SerializeField] protected HealthBar healthBar;
+    [SerializeField] private int actionPoints = 1;
+    [SerializeField] [CanBeNull] protected ActionPoints actionPointsUI;
+    [SerializeField] protected UnityEvent<int> onActionPointsChanged;
+
+    public int MaxActionPoints => actionPoints;
+    protected int ActionPoints;
 
     public int MaxDurability => maxDurability;
     public int Durability { get; private set; }
@@ -14,7 +23,13 @@ public abstract class SpaceShip: MonoBehaviour
     protected virtual void Start()
     {
         Durability = MaxDurability;
+        ActionPoints = actionPoints;
         Instantiate(healthBar, FindObjectOfType<Canvas>().transform).AttachTo(this);
+        
+        if (actionPointsUI.IsUnityNull()) return;
+        var pointsUI = Instantiate(actionPointsUI, FindObjectOfType<Canvas>().transform);
+        pointsUI.AttachTo(this);
+        onActionPointsChanged.AddListener(points => pointsUI.OnPointsChanged(points));
     }
 
     public void TakeDamage(int damage)
@@ -25,4 +40,10 @@ public abstract class SpaceShip: MonoBehaviour
     }
 
     protected abstract void Destruction();
+
+    public void RestoreActionPoints()
+    {
+        ActionPoints = MaxActionPoints;
+        onActionPointsChanged.Invoke(ActionPoints);
+    }
 }

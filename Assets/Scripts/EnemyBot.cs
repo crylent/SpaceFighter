@@ -28,6 +28,10 @@ public class EnemyBot: MonoBehaviour
         var ships = new List<Enemy>(_ships);
         foreach (var ship in ships)
         {
+            ship.RestoreActionPoints();
+        }
+        foreach (var ship in ships)
+        {
             ship.MakeMoves();
             yield return new WaitWhile(ship.IsMakingMove);
         }
