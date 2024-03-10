@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
@@ -55,11 +54,15 @@ namespace Weapon
             var ships = new List<SpaceShip>(_shipsThreatened);
             foreach (var ship in ships)
             {
-                var positionDelta = ship.transform.position - transform.parent.position;
-                var orthoMagnitude = Mathf.RoundToInt(Mathf.Abs(positionDelta.x) + Mathf.Abs(positionDelta.y));
-                var resDamage = damage - damageReductionFromDistance * orthoMagnitude;
-                ship.TakeDamage(resDamage);
+                ship.TakeDamage(CalculateDamage(ship));
             }
+        }
+
+        public int CalculateDamage(SpaceShip target)
+        {
+            var distance = Utility.OrthoDistance(target.transform, transform.parent);
+            var resDamage = damage - damageReductionFromDistance * Mathf.RoundToInt(distance);
+            return resDamage > 0 ? resDamage : 0;
         }
 
         private bool _hasActiveProjectile;

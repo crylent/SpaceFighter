@@ -5,8 +5,9 @@ using Weapon;
 
 namespace Enemies
 {
-    public class Enemy : SpaceShip
+    public abstract class Enemy : SpaceShip
     {
+        [SerializeField] private int actionsPerTurn = 1;
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material outlineMaterial;
 
@@ -14,6 +15,10 @@ namespace Enemies
 
         private Renderer _renderer;
         protected PlayerController Player;
+        private EnemyBot _bot;
+
+        private bool _isMakingMove;
+        public bool IsMakingMove() => _isMakingMove;
 
         // Start is called before the first frame update
         protected override void Start()
@@ -21,10 +26,12 @@ namespace Enemies
             base.Start();
             _renderer = GetComponent<Renderer>();
             Player = FindObjectOfType<PlayerController>();
+            _bot = FindObjectOfType<EnemyBot>();
         }
 
         protected override void Destruction()
         {
+            _bot.DelistShip(this);
             Destroy(gameObject);
         }
 
@@ -32,8 +39,42 @@ namespace Enemies
         {
             _renderer.material = isThreatened ? outlineMaterial : defaultMaterial;
         }
-        
-        public virtual void MakeMove() {}
+
+        public void MakeMoves()
+        {
+            StartCoroutine(MakeMovesCoroutine());
+        }
+
+        private IEnumerator MakeMovesCoroutine()
+        {
+            _isMakingMove = true;
+            for (var i = 0; i < actionsPerTurn; i++)
+            {
+                MakeMove(actionsPerTurn - i);
+                yield return new WaitForSeconds(1f);
+            }
+            _isMakingMove = false;
+        }
+
+        protected abstract void MakeMove(int actionsRemain);
+
+        /*protected bool UseGrandCannonOrMoveToPlayerOnX()
+        {
+            
+        }*/
+
+        protected bool MoveToPlayerOnX()
+        {
+            var deltaX = PlayerXDiff();
+            if (deltaX == 0) return false;
+            var delta = -Mathf.Sign(deltaX);
+            var pos = transform.position;
+            pos.x += delta;
+            if (_bot.OccupiedPositions.Contains(Utility.RoundVectorToInt(pos)))
+                return false;
+            transform.Translate(delta, 0, 0);
+            return true;
+        }
 
         protected void Attack(WeaponType weapon)
         {
@@ -46,20 +87,33 @@ namespace Enemies
                 case WeaponType.Rocket:
                     break;
                 case WeaponType.AutoCannon:
+                    AutoCannonFire();
                     break;
                 case WeaponType.GrandCannon:
-                    StartCoroutine(GrandCannonFire());
+                    GrandCannonFire();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weapon), weapon, null);
             }
         }
 
-        private IEnumerator GrandCannonFire()
+        private void GrandCannonFire()
         {
-            weapons.grandCannon.transform.position = Player.transform.position;
-            yield return new WaitForSeconds(DelayBeforeFire);
-            weapons.grandCannon.Fire();
+            StartCoroutine(CannonFire(weapons.grandCannon));
         }
+
+        private void AutoCannonFire()
+        {
+            StartCoroutine(CannonFire(weapons.autoCannon));
+        }
+
+        private IEnumerator CannonFire(Weapon.Weapon weapon)
+        {
+            weapon.transform.position = Player.transform.position;
+            yield return new WaitForSeconds(DelayBeforeFire);
+            weapon.Fire();
+        }
+
+        protected int PlayerXDiff() => Utility.DeltaX(Player.transform, transform);
     }
 }

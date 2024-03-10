@@ -1,11 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Enemies;
 using UnityEngine;
 
 public class EnemyBot: MonoBehaviour
 {
-    private Enemy[] _ships;
+    private List<Enemy> _ships;
     private GameManager _gameManager;
+    public List<(int, int)> OccupiedPositions => _ships
+        .Select(ship => Utility.RoundVectorToInt(ship.transform.position))
+        .ToList();
 
     private void Start()
     {
@@ -20,16 +25,22 @@ public class EnemyBot: MonoBehaviour
 
     private IEnumerator DoTurn()
     {
-        foreach (var ship in _ships)
+        var ships = new List<Enemy>(_ships);
+        foreach (var ship in ships)
         {
-            ship.MakeMove();
-            yield return new WaitForSeconds(1f);
+            ship.MakeMoves();
+            yield return new WaitWhile(ship.IsMakingMove);
         }
         _gameManager.EnemyEndTurn();
     }
     
     private void ListShips()
     {
-        _ships = FindObjectsOfType<Enemy>();
+        _ships = FindObjectsOfType<Enemy>().ToList();
+    }
+
+    public void DelistShip(Enemy ship)
+    {
+        _ships.Remove(ship);
     }
 }
