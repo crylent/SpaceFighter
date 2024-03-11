@@ -6,6 +6,8 @@ namespace UI
     {
         [SerializeField] private Weapon.Weapon weapon;
 
+        public override string GetTitle() => weapon.GetWeaponName();
+
         public override string MakeDesc()
         {
             if (weapon.DamageReductionFromDistance == 0)

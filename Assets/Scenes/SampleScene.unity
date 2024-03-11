@@ -450,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff3b5e118184816a6326e64a13e8e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Missile
   weapon: {fileID: 1496378957}
 --- !u!1 &227656980
 GameObject:
@@ -786,6 +785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fb858704a34e60ada7c85a7171fdf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipName: Battleship
   weapons:
     laser: {fileID: 0}
     missile: {fileID: 0}
@@ -812,7 +812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123951250828438f87d47c954b19ad49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Battleship
   ship: {fileID: 310005166}
   weapons:
   - {fileID: 764811733}
@@ -1824,7 +1823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff3b5e118184816a6326e64a13e8e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Laser
   weapon: {fileID: 8921320174224492549}
 --- !u!1 &1283008113
 GameObject:
@@ -2444,7 +2442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff3b5e118184816a6326e64a13e8e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Grand Cannon
   weapon: {fileID: 2116840459}
 --- !u!1 &1427037715
 GameObject:
@@ -2638,7 +2635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff3b5e118184816a6326e64a13e8e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Auto Cannon
   weapon: {fileID: 227656986}
 --- !u!1 &1496378950
 GameObject:
@@ -3021,6 +3017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f71dc22b61484ea2fbda06a15cce9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipName: Destroyer
   weapons:
     laser: {fileID: 0}
     missile: {fileID: 0}
@@ -3151,7 +3148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123951250828438f87d47c954b19ad49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Destroyer
   ship: {fileID: 1723334464}
   weapons:
   - {fileID: 1306950927}
@@ -3393,6 +3389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc40173766943d94f84f75fe441ec708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipName: 
   weapons:
     laser: {fileID: 8921320174224492549}
     missile: {fileID: 1496378957}

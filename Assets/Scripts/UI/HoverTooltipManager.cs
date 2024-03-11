@@ -44,7 +44,7 @@ namespace UI
 
         private void DisplayTooltip(HoverTooltipTarget target)
         {
-            title.SetText(target.Title);
+            title.SetText(target.GetTitle());
             description.SetText(target.MakeDesc());
             tooltip.alpha = 1;
         }

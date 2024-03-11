@@ -7,6 +7,7 @@ using Weapon;
 
 public abstract class SpaceShip: MonoBehaviour
 {
+    [SerializeField] private string shipName;
     [SerializeField] protected Weapons weapons;
     [SerializeField] private int maxDurability = 100;
     [SerializeField] protected HealthBar healthBar;
@@ -14,6 +15,8 @@ public abstract class SpaceShip: MonoBehaviour
     [SerializeField] [CanBeNull] protected ActionPoints actionPointsUI;
     [SerializeField] protected UnityEvent<int> onActionPointsChanged;
 
+    public string Name => shipName;
+    
     public int MaxActionPoints => actionPoints;
     protected int ActionPoints;
 

@@ -8,6 +8,8 @@ namespace UI
         [SerializeField] private SpaceShip ship;
         [SerializeField] private Weapon.Weapon[] weapons;
 
+        public override string GetTitle() => ship.Name;
+
         public override string MakeDesc() =>
             weapons.Aggregate(
                 "Durability: " + ship.Durability + "/" + ship.MaxDurability + "\n\n",

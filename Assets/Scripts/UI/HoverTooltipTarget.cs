@@ -2,11 +2,9 @@ using UnityEngine;
 
 namespace UI
 {
-    public class HoverTooltipTarget: MonoBehaviour
+    public abstract class HoverTooltipTarget: MonoBehaviour
     {
-        [SerializeField] private string title;
-        public string Title => title;
-
-        public virtual string MakeDesc() => "";
+        public abstract string GetTitle();
+        public abstract string MakeDesc();
     }
 }
