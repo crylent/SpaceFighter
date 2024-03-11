@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Weapon;
 
 public class PlayerController : SpaceShip
@@ -21,7 +22,7 @@ public class PlayerController : SpaceShip
 
     protected override void Destruction()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnMove(InputAction.CallbackContext context)
