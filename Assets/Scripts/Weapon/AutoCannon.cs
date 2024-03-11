@@ -22,5 +22,7 @@ namespace Weapon
                 yield return new WaitForSeconds(interval);
             }
         }
+
+        public override string GetWeaponName() => "Auto Cannon";
     }
 }

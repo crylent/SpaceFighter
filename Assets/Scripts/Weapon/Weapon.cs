@@ -10,11 +10,14 @@ namespace Weapon
         typeof(Rigidbody2D),
         typeof(Animator)
     )]
-    public class Weapon: MonoBehaviour
+    public abstract class Weapon: MonoBehaviour
     {
         [SerializeField] private int damage = 10;
-        [SerializeField] private int damageReductionFromDistance;
+        public int MaxDamage => damage;
         
+        [SerializeField] private int damageReductionFromDistance;
+        public int DamageReductionFromDistance => damageReductionFromDistance;
+
         private Animator _animator;
         private static readonly int OnAttackTrigger = Animator.StringToHash("onAttack");
 
@@ -87,5 +90,7 @@ namespace Weapon
         }
 
         public bool CanBeDeactivated() => !_hasActiveProjectile;
+
+        public abstract string GetWeaponName();
     }
 }

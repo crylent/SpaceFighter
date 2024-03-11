@@ -6,5 +6,7 @@ namespace UI
     {
         [SerializeField] private string title;
         public string Title => title;
+
+        public virtual string MakeDesc() => "";
     }
 }

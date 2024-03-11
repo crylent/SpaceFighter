@@ -5,10 +5,10 @@ namespace Weapon
     [Serializable]
     public class Weapons
     {
-        public Weapon laser;
-        public Weapon missile;
-        public Weapon autoCannon;
-        public Weapon grandCannon;
+        public Laser laser;
+        public Missile missile;
+        public AutoCannon autoCannon;
+        public GrandCannon grandCannon;
 
         public Weapon ById(int id) => 
             id switch 

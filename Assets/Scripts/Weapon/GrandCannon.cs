@@ -7,5 +7,7 @@ namespace Weapon
             StartCoroutine(LaunchProjectile(projectile, projectileStrikeTime));
             base.Fire();
         }
+
+        public override string GetWeaponName() => "Grand Cannon";
     }
 }

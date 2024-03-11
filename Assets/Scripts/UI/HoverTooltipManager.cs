@@ -8,6 +8,7 @@ namespace UI
     {
         [SerializeField] private CanvasGroup tooltip;
         [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private TextMeshProUGUI description;
         
         private Camera _camera;
         private RectTransform _rectTransform;
@@ -44,6 +45,7 @@ namespace UI
         private void DisplayTooltip(HoverTooltipTarget target)
         {
             title.SetText(target.Title);
+            description.SetText(target.MakeDesc());
             tooltip.alpha = 1;
         }
 
