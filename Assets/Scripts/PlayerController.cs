@@ -56,7 +56,7 @@ public class PlayerController : SpaceShip
         if (laserAngles.Check(rotation)) weapons.laser.transform.rotation = Quaternion.Euler(0, 0, rotation);    
                 
         // rocket & auto cannon
-        weapons.rocket.transform.position = positionRounded;
+        weapons.missile.transform.position = positionRounded;
         weapons.autoCannon.transform.position = positionRounded;
         
         // grand cannon (can fire forward only)
@@ -89,7 +89,7 @@ public class PlayerController : SpaceShip
         _weapon = weapon;
         
         CheckActiveWeapon(weapons.laser, WeaponType.Laser);
-        CheckActiveWeapon(weapons.rocket, WeaponType.Rocket);
+        CheckActiveWeapon(weapons.missile, WeaponType.Missile);
         CheckActiveWeapon(weapons.autoCannon, WeaponType.AutoCannon);
         CheckActiveWeapon(weapons.grandCannon, WeaponType.GrandCannon);
     }

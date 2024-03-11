@@ -79,7 +79,7 @@ namespace Enemies
                     break;
                 case WeaponType.Laser:
                     break;
-                case WeaponType.Rocket:
+                case WeaponType.Missile:
                     break;
                 case WeaponType.AutoCannon:
                     AutoCannonFire();

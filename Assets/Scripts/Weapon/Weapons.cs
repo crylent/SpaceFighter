@@ -6,7 +6,7 @@ namespace Weapon
     public class Weapons
     {
         public Weapon laser;
-        public Weapon rocket;
+        public Weapon missile;
         public Weapon autoCannon;
         public Weapon grandCannon;
 
@@ -14,7 +14,7 @@ namespace Weapon
             id switch 
             {
                 1 => laser,
-                2 => rocket,
+                2 => missile,
                 3 => autoCannon,
                 4 => grandCannon,
                 _ => null 

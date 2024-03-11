@@ -458,7 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
     laser: {fileID: 0}
-    rocket: {fileID: 0}
+    missile: {fileID: 0}
     autoCannon: {fileID: 0}
     grandCannon: {fileID: 764811733}
   maxDurability: 100
@@ -1478,7 +1478,7 @@ GameObject:
   - component: {fileID: 1496378956}
   - component: {fileID: 1496378957}
   m_Layer: 0
-  m_Name: Rocket
+  m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1845,7 +1845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
     laser: {fileID: 0}
-    rocket: {fileID: 0}
+    missile: {fileID: 0}
     autoCannon: {fileID: 1306950927}
     grandCannon: {fileID: 1218499176}
   maxDurability: 50
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
     laser: {fileID: 1228263399}
-    rocket: {fileID: 1496378957}
+    missile: {fileID: 1496378957}
     autoCannon: {fileID: 227656986}
     grandCannon: {fileID: 2116840459}
   maxDurability: 100

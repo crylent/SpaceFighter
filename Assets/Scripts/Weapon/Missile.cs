@@ -1,6 +1,6 @@
 namespace Weapon
 {
-    public class Rocket: WeaponWithProjectiles
+    public class Missile: WeaponWithProjectiles
     {
         public override void Fire()
         {

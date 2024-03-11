@@ -2,6 +2,6 @@ namespace Weapon
 {
     public enum WeaponType
     {
-        None, Laser, Rocket, AutoCannon, GrandCannon
+        None, Laser, Missile, AutoCannon, GrandCannon
     }
 }
