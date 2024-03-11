@@ -2225,7 +2225,7 @@ MonoBehaviour:
   limits:
     left: -8
     right: 8
-    top: 0
+    top: -1
     bottom: -3
   laserAngles:
     min: -45
