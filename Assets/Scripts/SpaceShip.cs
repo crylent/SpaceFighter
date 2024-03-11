@@ -24,7 +24,7 @@ public abstract class SpaceShip: MonoBehaviour
     {
         Durability = MaxDurability;
         ActionPoints = actionPoints;
-        Instantiate(healthBar, FindObjectOfType<Canvas>().transform).AttachTo(this);
+        Instantiate(healthBar, GameObject.FindWithTag("HealthBar Layer").transform).AttachTo(this);
         
         if (actionPointsUI.IsUnityNull()) return;
         var pointsUI = Instantiate(actionPointsUI, FindObjectOfType<Canvas>().transform);

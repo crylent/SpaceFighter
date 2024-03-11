@@ -13,6 +13,7 @@ public class PlayerController : SpaceShip
     private GameManager _gameManager;
 
     private WeaponType _weapon;
+    private bool _cursorInEnemyZone;
 
     protected override void Start()
     {
@@ -41,7 +42,13 @@ public class PlayerController : SpaceShip
         if (!context.performed) return;
         
         var position = Camera.main!.ScreenToWorldPoint(context.ReadValue<Vector2>());
-        if (!_gameManager.EnemiesLimits.Check(position)) return;
+        if (!_gameManager.EnemiesLimits.Check(position))
+        {
+            _cursorInEnemyZone = false;
+            return;
+        }
+
+        _cursorInEnemyZone = true;
         var positionRounded = new Vector2(
             Mathf.Round(position.x), 
             Mathf.Round(position.y)
@@ -71,7 +78,7 @@ public class PlayerController : SpaceShip
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!context.performed || _weapon == WeaponType.None || ActionPoints <= 0) return;
+        if (!context.performed || _weapon == WeaponType.None || ActionPoints <= 0 || !_cursorInEnemyZone) return;
         weapons.ById((int) _weapon).Fire();
         WasteActionPoints();
     }
@@ -93,6 +100,8 @@ public class PlayerController : SpaceShip
         CheckActiveWeapon(weapons.autoCannon, WeaponType.AutoCannon);
         CheckActiveWeapon(weapons.grandCannon, WeaponType.GrandCannon);
     }
+
+    public void SelectWeapon(int weapon) => SelectWeapon((WeaponType) weapon);
 
     private void CheckActiveWeapon(Weapon.Weapon weapon, WeaponType weaponType)
     {

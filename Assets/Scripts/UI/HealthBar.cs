@@ -10,7 +10,7 @@ namespace UI
         protected override void Update()
         {
             base.Update();
-            filled.fillAmount = (float) AttachedTo.Durability / AttachedTo.MaxDurability;
+            filled.fillAmount = (float) AttachedTo!.Durability / AttachedTo.MaxDurability;
         }
     }
 }
